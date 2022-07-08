@@ -1,0 +1,12 @@
+POST  http://localhost:5504/user/register HTTP/1.1
+content-type: application/json
+
+{
+    "firstname":"Edih",
+    "lastname":"John",
+    "password":"password",
+    "email":"test@me.com",
+    "school":"uniport",
+    "faculty":"science",
+    "department":"bio-chem"
+}

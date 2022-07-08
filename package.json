@@ -1,0 +1,45 @@
+{
+  "name": "bubbookz-backend",
+  "version": "1.0.0",
+  "description": "Backend to the bubbookz frontend",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Codablack23/bubbookz-backend.git"
+  },
+  "keywords": [
+    "Books",
+    "community",
+    "events"
+  ],
+  "author": "codablack23",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Codablack23/bubbookz-backend/issues"
+  },
+  "homepage": "https://github.com/Codablack23/bubbookz-backend#readme",
+  "dependencies": {
+    "apollo": "^2.34.0",
+    "bcrypt": "^5.0.1",
+    "connect-session-sequelize": "^7.1.4",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "express-validator": "^6.14.2",
+    "helmet": "^5.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "node-fetch": "^3.2.6",
+    "passport": "^0.6.0",
+    "sequelize": "^6.21.2",
+    "sqlite3": "^5.0.8",
+    "uuid": "^8.3.2",
+    "uuid-v4": "^0.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
