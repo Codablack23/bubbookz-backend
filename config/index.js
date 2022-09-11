@@ -11,9 +11,16 @@ const services ={
     payments:require("../services/payment"),
     store:require("../services/store")
 }
-
+const models = {
+    books:require("../book-store/models"),
+    communities:require("../communities/models"),
+    events:require("../events/models"),
+    users:require("../user/models"),
+    admin:require("../admin/models")
+}
 module.exports ={
     routes,
     services,
-    database:require('./db')
+    database:require('./db'),
+    ...models
 }

@@ -3,52 +3,198 @@ const {DataTypes,Model} = require('sequelize')
 
 
 class User extends Model {}
+class AddressBook extends Model{}
+class BookPreference extends Model{}
+class AlertPreference extends Model{}
+class Orders extends Model{}
 
 User.init({
-    ID:{
+    id:{
      type:DataTypes.INTEGER,
      autoIncrement:true,
      primaryKey:true,
-     
     },
-    // isAdmin:{
-    //    type:DataTypes.BOOLEAN,
-    //    defaultValue:false
-    // },
-    Last_Name:{
+    account_type:{
+       type:DataTypes.STRING,
+       defaultValue:"student"
+    },
+    last_name:{
      type:DataTypes.STRING,
     },
-    First_Name:{
+    first_name:{
         type:DataTypes.STRING,
     },
-    Email:{
+    email:{
         type:DataTypes.STRING,
-        unique:true
     },
-    School:{
+    school:{
         type:DataTypes.STRING,
     },   
-    Faculty:{
+    faculty:{
         type:DataTypes.STRING,
     }, 
-    Department:{
+    department:{
         type:DataTypes.STRING,
     },
-    Last_Name:{
+    user_id:{
         type:DataTypes.STRING,
     },
-    User_ID:{
-        type:DataTypes.UUIDV4,
-    },
-    Password:{
+    password:{
         type:DataTypes.STRING,
+    },
+    profile_picture:{
+        type:DataTypes.STRING,
+    },
+    phone_no:{
+        type:DataTypes.INTEGER,
     }
 },
 {
  sequelize,
  tableName:'users'}
 )
+AddressBook.init({
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        primaryKey:true,
+    },
+    address_id:{
+        type:DataTypes.STRING,
+        allowNull:false,
+    },
+    email:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    address:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    state:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    city:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    isDefault:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false,
+    }
+},{sequelize,tableName:"address_book"})
 
+BookPreference.init({
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        primaryKey:true,
+    },
+    pref_id:{
+        type:DataTypes.STRING,
+        allowNull:false,
+    },
+    email:{
+        type:DataTypes.STRING,
+        allowNull:false,
+    },
+    preferences: {
+        type:DataTypes.STRING,
+        allowNull:false
+    } 
+},{sequelize,tableName:"book_preference"})
+AlertPreference.init({
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        primaryKey:true,
+    },
+    community:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true
+    },
+    comments_likes:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true
+    },
+    events:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true
+    },
+    book_arrival:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:true
+    },
+    email:{
+        type:DataTypes.STRING,
+        allowNull:false,
+    },
+},{sequelize,tableName:"alert_preference"})
+
+Orders.init({
+    id:{
+        type:DataTypes.INTEGER,
+        autoIncrement:true,
+        primaryKey:true,
+    },
+    phone_number:{
+        type:DataTypes.BIGINT
+    },
+    payment_status:{
+        type:DataTypes.STRING,
+        defaultValue:"unpaid" 
+    },
+    items:{
+        type:DataTypes.TEXT('long'),
+        allowNull:false,
+    },
+    order_id:{
+        type:DataTypes.STRING,
+        allowNull:false,
+    },
+    status:{
+        type:DataTypes.STRING,
+        allowNull:false,
+        defaultValue:"pending"
+    },
+    createdBy:{
+        type:DataTypes.STRING,
+        allowNull:false, 
+    },
+    shipping_method:{
+        type:DataTypes.STRING,
+        allowNull:false,
+    },
+    shipping_location:{
+        type:DataTypes.STRING,
+        defaultValue:""
+    },
+    payment_method:{
+        type:DataTypes.STRING,
+        allowNull:false,
+    },
+    payment_price:{
+        type:DataTypes.BIGINT,
+        allowNull:false,
+    },
+    delivery_fee:{
+        type:DataTypes.BIGINT,
+        defaultValue:0
+    },
+    discount:{
+        type:DataTypes.INTEGER,
+        defaultValue:0
+    },
+    delivered_by:{
+        type:DataTypes.STRING,
+        defaultValue:""
+    }
+},{sequelize,tableName:"orders"})
 module.exports = {
-    User
+    User,
+    AddressBook,
+    BookPreference,
+    AlertPreference,
+    Orders
 }

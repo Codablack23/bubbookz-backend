@@ -1,49 +1,68 @@
-const express = require('express')
-const {userSignUp,userLogin, logoutHandler} = require('./controller')
-const userRoute = express.Router()
-const {authenticate} = require("../services/auth")
+const express = require ('express');
+const {
+    userSignUp, 
+    userLogin, 
+    logoutHandler, 
+    getEvents, 
+    getCommunities, 
+    changePassword, 
+    addAddress,
+    getOrders,
+    updateAddress,
+    updateDetails,
+    updatePreference,
+    updateStudentDetails,
+    updateAlertPref,
+    getAddress,
+    getUserDetails,
+    getUserSchoolDetails,
+    getPreference,
+    getAlertPreference,
+    checkUser,
+    getSingleAddress,
+    getOrder,
+    createOrder
+} = require('./controller');
+const userRoute = express.Router();
+const {authenticate} = require('../services/auth');
 
-userRoute.use(express.json())
+userRoute.use(express.json());
+
+//user authentication and registration endpoints
+userRoute.post('/login', userLogin);
+userRoute.post('/register', userSignUp);
+userRoute.post('/logout', authenticate, logoutHandler);
+userRoute.post('/reset-password/:id');
+userRoute.post("/auth",authenticate,checkUser)
+
+//user dashboard endpoints 
+userRoute.post('/events',authenticate,getEvents);
+userRoute.post('/orders',authenticate,getOrders)
+userRoute.post('/orders/create',authenticate,createOrder)
+userRoute.post('/orders/:id',authenticate,getOrder)
+userRoute.post('/communities',authenticate,getCommunities);
+
+//orders
 
 
-userRoute.post('/login',userLogin)
-userRoute.post('/register',userSignUp)
-userRoute.post('/logout',authenticate,logoutHandler)
+//user settings endpoints
 
-userRoute.post('/reset-password/:id',(req,res)=>{
-    res.json({
-        name:"Name"
-    })
-})
+userRoute.post('/settings/change-password',authenticate,changePassword);
 
+userRoute.post('/settings/address',authenticate,getAddress);
+userRoute.post("/settings/address/:id",authenticate,getSingleAddress)
+userRoute.post('/settings/address/add',authenticate,addAddress);
+userRoute.post('/settings/address/update/:id',authenticate,updateAddress);
 
-userRoute.get('/events',(req,res)=>{
-    res.json({
-        name:"Name"
-    })
-})
-userRoute.get('/communities',(req,res)=>{
-    res.json({
-        name:"Name"
-    })
-})
-userRoute.get('/settings',(req,res)=>{
-    res.json({
-        name:"Name"
-    })
-})
-userRoute.post('/settings',(req,res)=>{
-    res.json({
-        name:"Name"
-    })
-})
-userRoute.post('/orders',(req,res)=>{
-    res.json({
-        name:"Name"
-    })
-}).post("/orders",(req,res)=>{
+userRoute.post('/settings/',authenticate,getUserDetails)
+userRoute.post("/settings/edit",authenticate,updateDetails)
+userRoute.post("/settings/student-details",authenticate,getUserSchoolDetails)
+userRoute.post("/settings/student-details/update",authenticate,updateStudentDetails)
 
-})
+userRoute.post("/settings/preferences",authenticate,getPreference)
+userRoute.post("/settings/preferences/update",authenticate,updatePreference)
 
+userRoute.post("/settings/notifications",authenticate,getAlertPreference)
+userRoute.post("/settings/notifications/update",authenticate,updateAlertPref)
 
-module.exports = userRoute
+module.exports = userRoute;

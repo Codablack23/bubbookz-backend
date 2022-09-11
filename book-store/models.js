@@ -1,0 +1,89 @@
+const {DataTypes,Model} = require('sequelize')
+const {sequelize} = require("../config/db")
+
+class Book extends Model{}
+
+Book.init({
+    id:{
+        type:DataTypes.BIGINT,
+        autoIncrement:true,
+        primaryKey:true
+    },
+    book_id:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    discount_price:{
+        type:DataTypes.INTEGER,
+        allowNull:false,
+    },
+    title:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    author:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    book_details:{
+        type:DataTypes.JSON,
+        allowNull:false
+    },
+    faculty:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    department:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    level:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    semester:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    format:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    price:{
+        type:DataTypes.BIGINT,
+        allowNull:false
+    },
+    in_stock:{
+        type:DataTypes.BIGINT,
+        allowNull:false
+    },
+    book_link:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    expenses:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    book_description:{
+        type:DataTypes.TEXT("long"),
+        allowNull:false
+    },
+    book_img:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    tags:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    vendor:{
+        type:DataTypes.STRING,
+        allowNull:false 
+    }
+},
+{sequelize,tableName:"books"})
+
+module.exports={
+   Book
+}

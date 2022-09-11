@@ -5,7 +5,7 @@ module.exports = function validateFields(validator){
   }
   function addErrors(errorArray,message,fieldType){
       errorArray.push({
-          field:fieldType.toLowerCase(),
+          field:fieldType.toLowerCase().replace(" ","_"),
           error:`${fieldType} ${message}`
         })
   }
@@ -39,6 +39,19 @@ module.exports = function validateFields(validator){
          }
        }
      },
+     phone:{
+      validate(field="",fieldName="Phone Number"){
+        if(isEmpty(field)){
+          addErrors(errors,"must not be empty",fieldName)
+        }
+        else if(field.length < 9 ){
+          addErrors(errors,"must atleast be 9 digits long",fieldName)
+        }
+        else if(field.match(/[d|+]+/) !== null){
+          addErrors(errors,"must contain only digits and +",fieldName)
+        }
+      }
+     },
      username:{
       validate(field=" ",fieldName="Username"){
         if(isEmpty(field)){
@@ -46,6 +59,52 @@ module.exports = function validateFields(validator){
         }
         else if(matchFormat(field,/\w+/gi) || field.includes(" ")){
           addErrors(errors,"must not contain only alphabets and numbers",fieldName)
+        }
+      }
+     },
+     address:{
+      validate(field=" ",fieldName="Address"){
+        if(field.startsWith(" ")|| field.endsWith(" ")){
+          addErrors(errors,"must not be empty",fieldName)
+        }
+        else if(field.length < 3){
+          addErrors(errors,"must atleast be 3 characters long",fieldName)
+        }
+        else if(field.match(/[|@||#|$|%|!|&]+/g) !== null){
+          addErrors(errors,"must contain only alphabets,':',numbers or _ and -",fieldName)
+        }
+      }
+     },
+     number:{
+      validate(field="",fieldName="Number"){
+        if(isEmpty(field.toString())){
+          addErrors(errors,"must not be empty",fieldName)
+        }
+        else if(field.toString().match(/[0-9|.]+/g) === null){
+          addErrors(errors,"must contain only numbers",fieldName)
+        }
+      }
+     },
+     link:{
+      validate(field="",fieldName="Link"){
+        if(isEmpty(field.toString())){
+          addErrors(errors,"must not be empty",fieldName)
+        }
+        else if(field.toString().match(/^(http(s?):\/\/)/) === null){
+          addErrors(errors,"must contain only numbers",fieldName)
+        }
+      }
+     },
+     word:{
+      validate(field=" ",fieldName="Text"){
+        if(isEmpty(field)){
+          addErrors(errors,"must not be empty",fieldName)
+        }
+        else if(field.length < 2){
+          addErrors(errors,"must atleast be 2 characters long",fieldName)
+        }
+        else if(field.match(/[\d|@|_|#|$|%|!|&]+/g) !== null){
+          addErrors(errors,"must contain only alphabets",fieldName)
         }
       }
      },
