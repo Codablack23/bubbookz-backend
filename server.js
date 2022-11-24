@@ -16,7 +16,7 @@ const fs = require('fs')
 
 const {sequelize,sequelize_sqlite} = database
 
-sequelize.sync({alter:true}).then(()=>{
+sequelize.sync().then(()=>{
     console.log("connected to db and created neccessary tables")
 }).
 catch(err=>{console.log(err)})
@@ -67,6 +67,8 @@ app.use("/books",routes.book_store)
 app.use("/communities",routes.communities)
 app.use("/events",routes.events)
 app.use("/admin",routes.admin)
+
+
 app.post("/upload",authenticateAll,async function(req,res){
     const response = {
         status:'ongoing',

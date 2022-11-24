@@ -21,7 +21,9 @@ const {
     checkUser,
     getSingleAddress,
     getOrder,
-    createOrder
+    createOrder,
+    handleGoogleSignUp,
+    handleGoogleLogin
 } = require('./controller');
 const userRoute = express.Router();
 const {authenticate} = require('../services/auth');
@@ -31,6 +33,8 @@ userRoute.use(express.json());
 //user authentication and registration endpoints
 userRoute.post('/login', userLogin);
 userRoute.post('/register', userSignUp);
+userRoute.post("/google-login",handleGoogleLogin)
+userRoute.post("/google-signup",handleGoogleSignUp)
 userRoute.post('/logout', authenticate, logoutHandler);
 userRoute.post('/reset-password/:id');
 userRoute.post("/auth",authenticate,checkUser)

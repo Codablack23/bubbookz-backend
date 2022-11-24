@@ -70,7 +70,7 @@ async function getCommunities(req,res){
         ...com.dataValues,
         all_likes,
         likes:all_likes.length,
-        members:members.filter(member=>member.community_id === com.community_id),
+        members:members.filter(member=>member.community_id === com.community_id).map(d=>d.member),
         creator:`${createdBy.first_name} ${createdBy.last_name}`
       }
     })

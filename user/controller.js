@@ -81,6 +81,95 @@ async function userLogin(req,res){
   }
   res.json(result)
 }
+async function handleGoogleLogin(req,res){
+  const result = {
+    status:"Bad request",
+    error:[]
+   }
+   const {email} = req.body
+   try {
+    const existingUser = await User.findOne({where:{email}})
+    console.log({existingUser,email})
+    if(existingUser){
+      const userData = {
+        last_name:existingUser.lastname,
+        first_name:existingUser.firstname,
+        email,
+        school:existingUser.school,
+        faculty:existingUser.faculty,
+        account_type:existingUser.account_type,
+        user_id:existingUser.user_id,
+        profile_picture:existingUser.profile_picture,
+        phone_no:existingUser.phone_no,
+        department:existingUser.department,
+      }
+      result.status = "authorized"
+      req.session.user = userData
+      result.user = userData
+    }
+    else{
+      result.status = "unauthorized"
+      result.error = "User does not exist"
+    }
+   } catch (error) {
+    console.log(error)
+    result.status = "failed"
+    result.error = "internal server error"
+  }
+  res.json(result)
+}
+async function handleGoogleSignUp(req,res){
+  const result = {
+    status:"Bad request",
+    error:[]
+   }
+  const {firstname,lastname,email} = req.body
+  try {
+    const existingUser = await User.findOne({where:{email}})
+    if(!existingUser){
+      const user_id = uuid.v4().slice(0,6)
+      await User.create({
+        last_name:lastname,
+        first_name:firstname,
+        password:"",
+        email:email,
+        school:"",
+        faculty:"",
+        user_id,
+        department:"",
+        phone_no:"",
+        profile_picture:"",
+       })
+       const userData = {
+        last_name:lastname,
+        first_name:firstname,
+        email,
+        school:"",
+        faculty:"",
+        account_type:"student",
+        user_id,
+        profile_picture:"",
+        phone_no:"",
+        department:"",
+       }
+       req.session.user = userData
+       
+       result.status = "success"
+       result.user = userData
+       result.message = "you have signed up successfully"
+     
+    }
+    else{
+      result.status = "Failed"
+      result.error = "user already exists"
+    }
+  } catch (error) {
+    console.log(error)
+    result.status = "Failed"
+    result.error = "internal server error"
+  }
+  res.json(result)
+}
 
 
 async function userSignUp(req,res){
@@ -118,15 +207,10 @@ async function userSignUp(req,res){
           department:department,
          })
 
-         req.session.user = {
-          email,
-         }
-         
-         result.status = "success"
-         result.user = {
+         const userData = {
           last_name:lastname,
           first_name:firstname,
-          email:email,
+          email,
           school:school,
           faculty:faculty,
           account_type:"student",
@@ -134,7 +218,11 @@ async function userSignUp(req,res){
           profile_picture:"",
           phone_no:"",
           department:department,
-        }
+         }
+         req.session.user = userData
+         
+         result.status = "success"
+         result.user = userData
          result.message = "you have signed up successfully"
        }
        else{
@@ -401,8 +489,7 @@ async function addAddress(req,res){
       city:city.toLowerCase(),
       email,
     },"address")
-    console.log("heya")
-
+ 
     if(queryResponse1.status != "success" || queryResponse1.status != "500"){
 
       if(isDefault == true){
@@ -600,6 +687,8 @@ module.exports = {
   userSignUp,
   createOrder,
   userLogin,
+  handleGoogleLogin,
+  handleGoogleSignUp,
   logoutHandler,
   getCommunities,
   getOrders,

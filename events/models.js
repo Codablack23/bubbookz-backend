@@ -75,6 +75,15 @@ EventSubscribers.init({
         type:DataTypes.STRING,
         allowNull:false
     },
+    discount:{
+        type:DataTypes.BIGINT,
+        allowNull:false,
+        defaultValue:0 
+    },
+    total:{
+        type:DataTypes.BIGINT,
+        allowNull:false,
+    },
     phone_no:{
         type:DataTypes.BIGINT,
         allowNull:false
@@ -84,6 +93,10 @@ EventSubscribers.init({
         allowNull:false
     },
     event_id:{
+        type:DataTypes.STRING,
+        allowNull:false   
+    },
+    reg_id:{
         type:DataTypes.STRING,
         allowNull:false   
     },
