@@ -24,13 +24,12 @@ const sequelize = new Sequelize(
     }
 )
 
-const sequelize_sqlite = new Sequelize ({
-    dialect: 'sqlite',
-    host: './sessions.sqlite'
-  })
+// const sequelize_sqlite = new Sequelize ({
+//     dialect: 'sqlite',
+//     host: './sessions.sqlite'
+//   })
 
 module.exports = {
     sequelize,
-    sequelize_sqlite,
     createDB
 }

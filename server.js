@@ -14,7 +14,7 @@ const MB = 1024 * 1024
 const app = express()
 const fs = require('fs')
 
-const {sequelize,sequelize_sqlite} = database
+const {sequelize} = database
 
 sequelize.sync().then(()=>{
     console.log("connected to db and created neccessary tables")
@@ -44,7 +44,16 @@ app.use(fileUpload({
 
 app.use(cors({
     credentials:true,
-    origin:["http://localhost:5503","http://localhost:3006"]
+    origin:[
+    "http://localhost:5503",
+    "http://localhost:3006",
+    "https://www.bubbookz.com",
+    "https://bubbookz.com",
+    "https://app.bubbookz.com",
+    "https://admin.bubbookz.com",
+    "https://bubbookz.vercel.app",
+    "https://bubbookz-admin.vercel.app"
+    ]
 }))
 app.use(session({
     secret:process.env.SECRET_KEY,
