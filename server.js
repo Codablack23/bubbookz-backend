@@ -22,9 +22,9 @@ sequelize.sync().then(()=>{
 catch(err=>{console.log(err)})
 
 
-sequelize_sqlite.sync().then(()=>{
-    console.log("created sqlite session store")
-})
+// sequelize_sqlite.sync().then(()=>{
+//     console.log("created sqlite session store")
+// })
 
 .catch(err=>{console.log(err)})
 
@@ -51,7 +51,7 @@ app.use(session({
     genid:uuid.v4,
     resave:false,
     saveUninitialized:false,
-    store:new SequelizeStore({db:sequelize_sqlite}),
+    store:new SequelizeStore({db:sequelize}),
     cookie:{
         httpOnly:true,
         secure:false,
