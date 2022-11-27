@@ -51,11 +51,13 @@ const whitelist = [
     "https://bubbookz.vercel.app",
     "https://bubbookz-admin.vercel.app"
 ]
-app.use(cors({
+app.use(cors(
+    {
     credentials:true,
     name:"bubbookz",
     origin:whiteList
-}))
+    }
+))
 app.use(session({
     secret:process.env.SECRET_KEY,
     genid:uuid.v4,
