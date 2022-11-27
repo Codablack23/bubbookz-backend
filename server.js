@@ -54,14 +54,7 @@ const whitelist = [
 app.use(cors({
     credentials:true,
     name:"bubbookz",
-    origin:function (origin, callback) {
-        console.log(origin)
-        if (whitelist.includes(origin)) {
-          callback(null, true)
-        } else {
-          callback(new Error('Not allowed by CORS'))
-        }
-      }
+    origin:whiteList
 }))
 app.use(session({
     secret:process.env.SECRET_KEY,
