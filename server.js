@@ -72,7 +72,7 @@ app.use(session({
         httpOnly:true,
         secure:false,
         maxAge:oneMonth,
-        sameSite:false,
+        sameSite:"none",
     }
 }
     
