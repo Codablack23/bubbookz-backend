@@ -55,7 +55,7 @@ app.use(cors({
     credentials:true,
     name:"bubbookz",
     origin:function (origin, callback) {
-        if (whitelist.map(w=>w.toLowerCase()).includes(origin.toLowerCase())) {
+        if (whitelist.includes(origin.toLowerCase())) {
           callback(null, true)
         } else {
           callback(new Error('Not allowed by CORS'))
