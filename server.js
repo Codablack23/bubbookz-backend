@@ -41,7 +41,19 @@ app.use(fileUpload({
         })
     }
 }))
-const whitelist = [
+// const whitelist = [
+//     "http://localhost:5503",
+//     "http://localhost:3006",
+//     "https://www.bubbookz.com",
+//     "https://bubbookz.com",
+//     "https://app.bubbookz.com",
+//     "https://admin.bubbookz.com",
+//     "https://bubbookz.vercel.app",
+//     "https://bubbookz-admin.vercel.app"
+// ]
+app.use(cors({
+    credentials:true,
+    origin:[
     "http://localhost:5503",
     "http://localhost:3006",
     "https://www.bubbookz.com",
@@ -50,14 +62,10 @@ const whitelist = [
     "https://admin.bubbookz.com",
     "https://bubbookz.vercel.app",
     "https://bubbookz-admin.vercel.app"
-]
-app.use(cors(
-    {
-    credentials:true,
-    name:"bubbookz",
-    origin:whiteList
-    }
-))
+    ]
+}))
+
+
 app.use(session({
     secret:process.env.SECRET_KEY,
     genid:uuid.v4,
