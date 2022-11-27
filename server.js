@@ -41,11 +41,7 @@ app.use(fileUpload({
         })
     }
 }))
-
-app.use(cors({
-    credentials:true,
-    name:"bubbookz",
-    origin:[
+const whitelist = [
     "http://localhost:5503",
     "http://localhost:3006",
     "https://www.bubbookz.com",
@@ -54,7 +50,17 @@ app.use(cors({
     "https://admin.bubbookz.com",
     "https://bubbookz.vercel.app",
     "https://bubbookz-admin.vercel.app"
-    ]
+]
+app.use(cors({
+    credentials:true,
+    name:"bubbookz",
+    origin:function (origin, callback) {
+        if (whitelist.map(w=>w.toLowerCase()).includes(origin.toLowerCase())) {
+          callback(null, true)
+        } else {
+          callback(new Error('Not allowed by CORS'))
+        }
+      }
 }))
 app.use(session({
     secret:process.env.SECRET_KEY,
