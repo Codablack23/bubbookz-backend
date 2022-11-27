@@ -44,6 +44,7 @@ app.use(fileUpload({
 
 app.use(cors({
     credentials:true,
+    name:"bubbookz",
     origin:[
     "http://localhost:5503",
     "http://localhost:3006",
