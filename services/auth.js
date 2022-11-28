@@ -10,7 +10,7 @@ async function authenticate(req,res,next){
     }
 }
 async function authenticateAll(req,res,next){
-    console.log(req.session.admin)
+    console.error(req.session.admin)
     if(req.session.user || req.session.admin){
         next()
      }
