@@ -62,6 +62,13 @@ app.use(cors({
         }
       }
 }))
+
+app.use((req,res,next)=>{
+    console.log(req.session.admin)
+    next()
+})
+
+
 app.use(session({
     secret:process.env.SECRET_KEY,
     genid:uuid.v4,
