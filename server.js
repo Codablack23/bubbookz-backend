@@ -73,7 +73,7 @@ app.use(session({
     resave:false,
     saveUninitialized:false,
     // proxy:true,
-    name:"api.bubbookz",
+    // name:"api.bubbookz",
     store:new SequelizeStore({db:sequelize}),
     cookie:{
         httpOnly:true,
