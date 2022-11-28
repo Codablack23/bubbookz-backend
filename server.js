@@ -72,7 +72,7 @@ app.use(session({
     genid:uuid.v4,
     resave:false,
     saveUninitialized:false,
-    proxy:true,
+    // proxy:true,
     name:"api.bubbookz",
     store:new SequelizeStore({db:sequelize}),
     cookie:{
