@@ -41,7 +41,19 @@ app.use(fileUpload({
         })
     }
 }))
-const whitelist = [
+// const whitelist = [
+//     "http://localhost:5503",
+//     "http://localhost:3006",
+//     "https://www.bubbookz.com",
+//     "https://bubbookz.com",
+//     "https://app.bubbookz.com",
+//     "https://admin.bubbookz.com",
+//     "https://bubbookz.vercel.app",
+//     "https://bubbookz-admin.vercel.app"
+// ]
+app.use(cors({
+    credentials:true,
+    origin:[
     "http://localhost:5503",
     "http://localhost:3006",
     "https://www.bubbookz.com",
@@ -50,17 +62,7 @@ const whitelist = [
     "https://admin.bubbookz.com",
     "https://bubbookz.vercel.app",
     "https://bubbookz-admin.vercel.app"
-]
-app.use(cors({
-    credentials:true,
-    name:"bubbookz",
-    origin:function (origin, callback) {
-        if (whitelist.map(w=>w.toLowerCase()).includes(origin.toLowerCase())) {
-          callback(null, true)
-        } else {
-          callback(new Error('Not allowed by CORS'))
-        }
-      }
+    ]
 }))
 
 app.use((req,res,next)=>{
@@ -74,12 +76,14 @@ app.use(session({
     genid:uuid.v4,
     resave:false,
     saveUninitialized:false,
+    proxy:true,
+    name:"api.bubbookz",
     store:new SequelizeStore({db:sequelize}),
     cookie:{
         httpOnly:true,
         secure:false,
         maxAge:oneMonth,
-        sameSite:false,
+        sameSite:"none",
     }
 }
     
