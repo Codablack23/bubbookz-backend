@@ -13,10 +13,12 @@ const oneMonth = 1000 * 60 * 60 * 24 * 30
 const MB = 1024 * 1024
 const app = express()
 const fs = require('fs')
+const server = require("http").createServer(app)
+
 
 const {sequelize} = database
 
-sequelize.sync().then(()=>{
+sequelize.sync({alter:true}).then(()=>{
     console.log("connected to db and created neccessary tables")
 }).
 catch(err=>{console.log(err)})
@@ -72,14 +74,14 @@ app.use(session({
     genid:uuid.v4,
     resave:false,
     saveUninitialized:false,
-    // proxy:true,
-    // name:"api.bubbookz",
+    proxy:true,
+    name:"api.bubbookz",
     store:new SequelizeStore({db:sequelize}),
     cookie:{
         httpOnly:true,
         secure:false,
         maxAge:oneMonth,
-        sameSite:"none",
+        sameSite:false,
     }
 }
     
@@ -139,6 +141,6 @@ app.post("/upload",authenticateAll,async function(req,res){
    res.send(response)
  })
 
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     console.log(`Server Started at port ${PORT}`)
 })

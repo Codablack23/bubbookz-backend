@@ -37,6 +37,7 @@
     "node-fetch": "^3.2.6",
     "passport": "^0.6.0",
     "sequelize": "^6.21.2",
+    "socket.io": "^4.5.4",
     "sqlite3": "^5.0.8",
     "uuid": "^8.3.2",
     "uuid-v4": "^0.1.0"

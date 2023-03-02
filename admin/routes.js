@@ -17,7 +17,10 @@ const {
     getOrders,
     getOrder,
     updateOrder,
-    updateCommunityStatus
+    updateCommunityStatus,
+    editBook,
+    deleteBook,
+    editEvent
 } = require("./controllers")
 
 const adminRoute = express.Router()
@@ -35,12 +38,15 @@ adminRoute.post('/update-profile',authenticateAdmin,editProfile)
 
 //events routes
 adminRoute.post('/add-event',authenticateAdmin,addEvent)
+adminRoute.post('/edit-event/:event_id',authenticateAdmin,editEvent)
 
 //community routes
 adminRoute.post("/update-community/:id",authenticateAdmin,updateCommunityStatus)
 
 //book routes
 adminRoute.post("/add-book",authenticateAdmin,addBook)
+adminRoute.post("/edit-book/:book_id",authenticateAdmin,editBook)
+adminRoute.post("/delete-book/:book_id",authenticateAdmin,deleteBook)
 
 //order routes 
 adminRoute.post("/orders",authenticateAdmin,getOrders)

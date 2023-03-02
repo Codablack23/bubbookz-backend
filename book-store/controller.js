@@ -1,4 +1,4 @@
-const {Book} = require("./models")
+const {Book,BookReviews} = require("./models")
 
 async function getBooks(req,res){
   const response = {
@@ -8,7 +8,9 @@ async function getBooks(req,res){
 
   try {
     const books = await Book.findAll()
+    const reviews = await BookReviews.findAll()
     response.books = books
+    response.reviews = reviews
     response.status = "success"
     response.error = ""
   } catch (error) {
@@ -31,9 +33,15 @@ async function getBook(req,res){
         book_id:id
       }
     })
+    const reviews = await BookReviews.findAll({
+      where:{
+        book_id:id
+      }
+    })
     console.log(book)
     if(book){
       response.book = book
+      response.reviews = reviews
       response.status = "success"
       response.error = ""
     }else{

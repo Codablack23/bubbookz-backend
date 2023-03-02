@@ -2,6 +2,9 @@ const {DataTypes,Model} = require('sequelize')
 const {sequelize} = require("../config/db")
 
 class Book extends Model{}
+class BookReviews extends Model{}
+
+
 
 Book.init({
     id:{
@@ -81,9 +84,58 @@ Book.init({
         type:DataTypes.STRING,
         allowNull:false 
     }
-},
-{sequelize,tableName:"books"})
+},{sequelize,tableName:"books"})
+
+BookReviews.init({
+    id:{
+        type:DataTypes.BIGINT,
+        primaryKey:true,
+        autoIncrement:true
+    },
+    review_id:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    book_id:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    user:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    name:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    phone:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    profile_pic:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    admin:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    rating:{
+        type:DataTypes.INTEGER,
+        allowNull:false
+    },
+    review:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    answer:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+},{sequelize,tableName:"book_reviews"})
+
 
 module.exports={
-   Book
+   Book,
+   BookReviews
 }
