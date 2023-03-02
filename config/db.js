@@ -19,7 +19,7 @@ const sequelize = new Sequelize(
     dbConfig.username,
     dbConfig.password,
     {
-        host:'localhost',
+        host:process.env.HOST,
         dialect:'mysql'
     }
 )
